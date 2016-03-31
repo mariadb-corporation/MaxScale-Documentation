@@ -84,6 +84,11 @@ rule NAME deny [wildcard | columns VALUE ... |
       no_where_clause] [at_times VALUE...] [on_queries [select|update|insert|delete]]
 ```
 
+**NOTE**
+In a rule, in place of `deny` you can also use `allow`. However, _irrespective of
+which one is used_, the effect of the rule is defined _solely_ by the value of
+`action` (_allow_ or _block_) in the filter section in the configuration file.
+
 Rules always define a blocking action so the basic mode for the database firewall filter is to allow all queries that do not match a given set of rules. Rules are identified by their name and have a mandatory part and optional parts. You can add comments to the rule files by adding the `#` character at the beginning of the line.
 
 The first step of defining a rule is to start with the keyword `rule` which
@@ -91,7 +96,7 @@ identifies this line of text as a rule. The second token is identified as
 the name of the rule. After that one of the mandatory action tokens, `deny` or
 `allow`, is required to mark the start of the actual rule definition. Both
 `deny` and `allow` function in the same way and the actual behavior of
-the filter is determined by the `action` parameter.
+the filter is determined by the `action` parameter in the filter section.
 
 ### Mandatory rule parameters
 
