@@ -10,32 +10,7 @@ The readconnroute router provides simple and lightweight load balancing across a
 
 Readconnroute router-specific settings are specified in the configuration file of MaxScale in its specific section. The section can be freely named but the name is used later as a reference from listener section.
 
-The configuration consists of mandatory and optional parameters.
-
-## Mandatory parameters
-
-**`type`** specifies the type of service. For readconnroute module the type is `router`:
-
-    type=router
-
-**`router`** specifies the router module to be used. For readconnroute the value is `readconnroute`:
-
-    router=readconnroute
-
-**`servers`** provides a list of servers, which the router will connect to:
-
-    servers=server1,server2,server3
-
-**NOTE: Each server on the list must have its own section in the configuration file where it is defined.**
-
-**`user`** is the username the router session uses for accessing backends in order to load the content of the `mysql.user` table (and `mysql.db` and database names as well) and optionally for creating, and using `maxscale_schema.replication_heartbeat` table.
-
-**`passwd`** specifies corresponding password for the user. Syntax for user and passwd is:
-
-```
-user=<username>
-passwd=<password>
-```
+For more details about the standard service parameters, refer to the [Configuration Guide](../Getting-Started/Configuration-Guide.md).
 
 ## Optional parameters
 
