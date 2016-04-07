@@ -12,38 +12,6 @@ Readconnroute router-specific settings are specified in the configuration file o
 
 For more details about the standard service parameters, refer to the [Configuration Guide](../Getting-Started/Configuration-Guide.md).
 
-## Optional parameters
-
-The **`weightby`** parameter defines the name of the value which is used to calculate the weights of the servers. Here is an example server configuration with the `serv_weight` parameter used as the weighting parameter.
-
-```
-[server1]
-type=server
-address=127.0.0.1
-port=3000
-protocol=MySQLBackend
-serv_weight=3
-
-[server2]
-type=server
-address=127.0.0.1
-port=3001
-protocol=MySQLBackend
-serv_weight=1
-
-[Read Service]
-type=service
-router=readconnroute
-servers=server1,server2
-weightby=serv_weight
-```
-
-With this configuration and a heavy query load, the server *server1* will get most of the connections and about a third of the remaining queries are routed to the second server. With server weights, you can assign secondary servers that are only used when the primary server is under heavy load.
-
-Without the weightby parameter, each connection counts as a single connection. With a weighting parameter, a single connection received its weight from the server's own weighting parameter divided by the sum of all weighting parameters in all the configured servers.
-
-If we use the previous configuration as an example, the sum of the `serv_weight` parameter is 4. Server1 would receive a weight of `3/4=75%` and server2 would get `1/4=25%`. This means that server1 would get 75% of the connections and server2 would get 25% of the connections.
-
 ## Router Options
 
 **`router_options`** can contain a list of valid server roles. These roles are used as the valid types of servers the router will form connections to when new sessions are created.
@@ -70,7 +38,7 @@ For a list of readconnroute limitations, please read the [Limitations](../About/
 
 The most common use for the readconnroute is to provide either a read or write port for an application. This provides a more lightweight routing solution than the more complex readwritesplit router but requires the application to be able to use distinct write and read ports.
 
-To configure a  read-only service that tolerates master failures, we first need to add a new section in to the configuration file.
+To configure a read-only service that tolerates master failures, we first need to add a new section in to the configuration file.
 
 ```
 [Read Service]
@@ -80,6 +48,6 @@ servers=slave1,slave2,slave3
 router_options=slave
 ```
 
-Here the `router_options`designates slaves as the only valid server type. With this configuration, the queries are load balanced across the slave servers.
+Here the `router_options` designates slaves as the only valid server type. With this configuration, the queries are load balanced across the slave servers.
 
 For more complex examples of the readconnroute router, take a look at the examples in the [Tutorials](../Tutorials) folder.
